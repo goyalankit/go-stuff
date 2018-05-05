@@ -1,7 +1,7 @@
 epoll
 ====
 
-This demonstrates basic usage of epoll api. 
+`main.go` demonstrates basic usage of epoll api. 
 
 epoll is a datastructure in kernel. It can be created/modified/waited on using the following three syscalls:
 
