@@ -3,7 +3,7 @@ epoll
 
 `main.go` demonstrates basic usage of epoll api. 
 
-epoll is a datastructure in kernel. It can be created/modified/waited on using the following three syscalls:
+`epoll` is a datastructure in kernel. It can be created/modified/waited on using the following three syscalls:
 
 `epoll_create` can be used to create a new insance of epoll data structure.
 ```
