@@ -10,20 +10,16 @@ import (
 )
 
 /*
-
 epoll is a data structure in kernel. It has following syscalls that
 can be used to create/modify/wait on it.
 
 int epoll_create(int size);
 int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event);
 int epoll_wait(int epfd, struct epoll_event *evlist, int maxevents, int timeout);
-
 */
 
 /*
-
 GO provides a wrapper for each of these epoll syscalls.
-
 */
 
 func sayHello(cfd int) {
@@ -33,7 +29,6 @@ func sayHello(cfd int) {
 	time.Sleep(1 * time.Second)
 	fmt.Println("closing the connection socket.")
 	defer syscall.Close(cfd)
-
 }
 
 const MaxConnections = 50
@@ -100,9 +95,7 @@ func main() {
 
 	// Create an array of events for kernel to respond us back
 	var events [MaxConnections]syscall.EpollEvent
-	for {
-
-		// time.Sleep(1 * time.Second)
+	for {		
 		fmt.Println("Waiting for events.")
 		//	int epoll_wait(int epfd, struct epoll_event *evlist, int maxevents, int timeout);
 		nvenets, err := syscall.EpollWait(epfd, events[:], -1)
@@ -113,26 +106,19 @@ func main() {
 		fmt.Println("Received some events.")
 
 		for i := 0; i < nvenets; i++ {
-
 			// Something is received on the listening socket.
 			if int(events[i].Fd) == fd {
-
 				// Accept the connection, send back the response
 				// and close the connection.
 				cfd, _, err := syscall.Accept(fd)
-
 				if err != nil {
 					fmt.Println("error in accept.")
 					continue
 				}
-
 				go sayHello(cfd)
-
 			} else {
 				fmt.Println("received something on the socket that we are not interested in?")
 			}
 		}
-
 	}
-
 }
