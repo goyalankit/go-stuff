@@ -20,9 +20,10 @@ const (
 	UNKNOWN Command = "unknown"
 )
 
-// ParseCommand parses the user passed string
+// parseCommand parses the user passed string
 // to one of the commands.
-func ParseCommand(s string) Command {
+func parseCommand(s string) Command {
+
 	switch strings.ToLower(s) {
 	case string(ABORT):
 		return ABORT

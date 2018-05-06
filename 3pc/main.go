@@ -15,19 +15,23 @@ func main() {
 	ctx, cancelFun := context.WithCancel(context.Background())
 	defer cancelFun()
 
-	n := NewNode(ctx, CoordinatorRole)
-	go n.Start()
+	inputC := make(chan Command)
+
+	n := NewNode(ctx)
+	go n.Start(inputC)
 
 	scanner := bufio.NewScanner(os.Stdin)
 
 	for scanner.Scan() {
 		cmd := scanner.Text()
 
-		switch ParseCommand(cmd) {
+		switch parseCommand(cmd) {
 		case COMMIT:
 			fmt.Println("Commit received.")
+			inputC <- COMMIT
 		case ABORT:
 			fmt.Println("Abort received.")
+			inputC <- ABORT
 		case QUIT:
 			fmt.Println("Quit Received")
 			os.Exit(0)
