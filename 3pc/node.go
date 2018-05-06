@@ -25,7 +25,7 @@ func NewNode(ctx context.Context, r Role) Node {
 	return &node{role: r}
 }
 
-func listner() error {
+func listener() error {
 
 	return nil
 }

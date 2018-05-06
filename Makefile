@@ -8,7 +8,7 @@
 # There are better makefiles available for a real
 # project: https://github.com/cloudflare/hellogopher
 
-.PHONY: epoll all epoll_clean ns ns_clean 3pc 3pc_clean
+.PHONY: epoll all epoll_clean ns ns_clean 3pc 3pc_clean gogob gogob_clean
 
 all: epoll ns
 
@@ -34,3 +34,10 @@ ns_clean:
 
 3pc_clean:
 	cd 3pc && rm -rf bin
+
+gogob:
+	cd gogob && mkdir -p bin && go build -o bin/gogob
+
+
+gogob_clean:
+	cd gogob && rm -rf bin
