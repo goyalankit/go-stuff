@@ -6,6 +6,9 @@ Server programs simply listens on a tcp socket and the
 clients send a struct encoded using gob. Server decodes
 them and sends an Ack encoded using gob as well.
 
+This also transfers Msg as the interface type to showcase
+how this can be extended to multiple types.
+
 Usage:
 $ go run main.go -role server
 Received message:  hello
@@ -26,6 +29,10 @@ import (
 	"os"
 )
 
+// Message is the generic interface
+// type to store the message in Gob.
+type Message interface{}
+
 // Msg is the message sent by client
 // to the server.
 type Msg struct {
@@ -41,10 +48,11 @@ type AckMsg struct {
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
 	dec := gob.NewDecoder(conn)
-	var msg Msg
-	if err := dec.Decode(&msg); err != nil {
+	var message Message
+	if err := dec.Decode(&message); err != nil {
 		fmt.Println("Decode error: ", err)
 	}
+	msg := message.(*Msg)
 	fmt.Println("Received message: ", msg.Data)
 	enc := gob.NewEncoder(conn)
 	if err := enc.Encode(AckMsg{Data: "Got your message. Thanks."}); err != nil {
@@ -79,7 +87,8 @@ func sendMsgToServer(text string) {
 	}
 
 	enc := gob.NewEncoder(conn)
-	if err := enc.Encode(Msg{Data: text}); err != nil {
+	var msg2 Message = Msg{Data: text}
+	if err := enc.Encode(&msg2); err != nil {
 		fmt.Println("Decode error: ", err)
 		os.Exit(1)
 	}
@@ -99,6 +108,13 @@ func startClient() {
 		text := scanner.Text()
 		sendMsgToServer(text)
 	}
+}
+
+func init() {
+	// Types that are shipped as implementation of an
+	// interface need to be registered. The type has
+	// to be exact (including the `&` part)
+	gob.Register(&Msg{})
 }
 
 func main() {
