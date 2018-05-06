@@ -95,7 +95,7 @@ func main() {
 
 	// Create an array of events for kernel to respond us back
 	var events [MaxConnections]syscall.EpollEvent
-	for {		
+	for {
 		fmt.Println("Waiting for events.")
 		//	int epoll_wait(int epfd, struct epoll_event *evlist, int maxevents, int timeout);
 		nvenets, err := syscall.EpollWait(epfd, events[:], -1)

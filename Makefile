@@ -8,11 +8,11 @@
 # There are better makefiles available for a real
 # project: https://github.com/cloudflare/hellogopher
 
-.PHONY: epoll all epoll_clean ns ns_clean
+.PHONY: epoll all epoll_clean ns ns_clean 3pc 3pc_clean
 
 all: epoll ns
 
-clean: epoll_clean ns_clean
+clean: epoll_clean ns_clean 3pc_clean
 
 epoll:
 	cd epoll && mkdir -p bin && go build -o bin/epoll
@@ -27,3 +27,10 @@ ns:
 
 ns_clean:
 	cd ns && rm -rf bin
+
+
+3pc:
+	cd 3pc && mkdir -p bin && go build -o bin/3pc
+
+3pc_clean:
+	cd 3pc && rm -rf bin
