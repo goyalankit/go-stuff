@@ -151,7 +151,7 @@ func joinExistingNS() {
 
 	/*
 
-		[angoyal@angoyal-ld3 go-stuff]$ sudo ns/bin/ns 2
+		[ankit go-stuff]$ sudo ns/bin/ns 2
 		running the process as  19825
 		joining the namespace:  pid
 		joining the namespace:  uts
@@ -159,9 +159,9 @@ func joinExistingNS() {
 		[in-namespace2]- # echo $$
 		2
 
-		[angoyal@angoyal-ld3 go-stuff]$ sudo ls -l /proc/19829/ns/uts
+		[ankit go-stuff]$ sudo ls -l /proc/19829/ns/uts
 		lrwxrwxrwx 1 root root 0 May  5 18:17 /proc/19829/ns/uts -> uts:[4026532639]
-		[angoyal@angoyal-ld3 go-stuff]$ sudo ls -l /proc/19825/ns/uts
+		[ankit go-stuff]$ sudo ls -l /proc/19825/ns/uts
 		lrwxrwxrwx 1 root root 0 May  5 18:16 /proc/19825/ns/uts -> uts:[4026532639]
 
 	*/
