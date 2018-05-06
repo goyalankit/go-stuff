@@ -45,9 +45,7 @@ func handleConnection(conn net.Conn) {
 	if err := dec.Decode(&msg); err != nil {
 		fmt.Println("Decode error: ", err)
 	}
-
 	fmt.Println("Received message: ", msg.Data)
-
 	enc := gob.NewEncoder(conn)
 	if err := enc.Encode(AckMsg{Data: "Got your message. Thanks."}); err != nil {
 		fmt.Println("Encode error: ", err)
