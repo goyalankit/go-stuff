@@ -49,7 +49,6 @@ func (n *node) Start(inputC <-chan Command) error {
 	// updates.
 	servConnC := make(chan net.Conn)
 	go startServer(servConnC)
-
 	for {
 		select {
 

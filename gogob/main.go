@@ -52,7 +52,6 @@ func handleConnection(conn net.Conn) {
 		os.Exit(1)
 	}
 	fmt.Println("Sent ack back.")
-
 }
 
 func startServer() {
@@ -61,7 +60,6 @@ func startServer() {
 		fmt.Println("error in listening.", err)
 		os.Exit(1)
 	}
-
 	for {
 		conn, err := ln.Accept()
 		if err != nil {

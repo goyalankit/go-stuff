@@ -23,7 +23,6 @@ const (
 // parseCommand parses the user passed string
 // to one of the commands.
 func parseCommand(s string) Command {
-
 	switch strings.ToLower(s) {
 	case string(ABORT):
 		return ABORT
