@@ -104,7 +104,15 @@ func joinExistingNS() {
 	fmt.Println("running the process as ", pid)
 	time.Sleep(1 * time.Second)
 
+	// Apparently linux doesn't allow you to
+
 	// Enter pid and mount namespace of the sleep process.
+	// User and mount namespaces are not allowed from multi-threaded programs, so.. you
+	// can't set mount or user namespace from a running go program. You can however
+	// user the cgo trick described here:
+	// https://stackoverflow.com/questions/25704661/calling-setns-from-go-returns-einval-for-mnt-namespace
+	// Reason:
+	// https://lists.linux-foundation.org/pipermail/containers/2013-January/031565.html
 	for _, ns := range []string{"pid", "uts", "net"} {
 		nsPath := fmt.Sprintf("/proc/%d/ns/%s", pid, ns)
 		// Opening the namespace changes your namespac.e
